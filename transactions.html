@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Royal Haven Suites - Transactions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #d4af37;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #d4af37;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .user-avatar:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .user-dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .dropdown-menu.active {
+            display: block;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .dropdown-menu a i {
+            margin-right: 10px;
+            color: #d4af37;
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 5px 0;
+        }
+        
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #0a1929;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar-menu a.active {
+            border-left: 4px solid #d4af37;
+        }
+        
+        .sidebar-menu a i {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        /* Page Header */
+        .page-header {
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: #0a1929;
+            margin-bottom: 10px;
+        }
+        
+        .page-description {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+        
+        /* Transaction Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .card-icon.total {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+        }
+        
+        .card-icon.pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        .card-icon.completed {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        
+        .card-icon.refunded {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .card-content p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        /* Transaction Filters */
+        .transaction-filters {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #0a1929;
+        }
+        
+        .filter-group input,
+        .filter-group select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        
+        /* Transaction Table */
+        .transaction-table-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+        
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .transaction-table th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            color: #0a1929;
+            font-weight: 600;
+        }
+        
+        .transaction-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .transaction-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .transaction-id {
+            font-weight: 600;
+            color: #0a1929;
+        }
+        
+        .transaction-date {
+            color: #6c757d;
+        }
+        
+        .transaction-description {
+            color: #333;
+        }
+        
+        .transaction-amount {
+            font-weight: 600;
+        }
+        
+        .transaction-amount.credit {
+            color: #28a745;
+        }
+        
+        .transaction-amount.debit {
+            color: #dc3545;
+        }
+        
+        .transaction-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-completed {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        .status-failed {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        
+        .status-refunded {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: #17a2b8;
+        }
+        
+        .transaction-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .action-btn:hover {
+            color: #d4af37;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .page-btn:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .page-btn.active {
+            background-color: #d4af37;
+            color: white;
+            border-color: #d4af37;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1a2332, #0a1929);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 25, 41, 0.3);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            padding: 40px 20px 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #d4af37;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-section ul li a i {
+            margin-right: 10px;
+            color: #d4af37;
+            font-size: 14px;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background-color: #d4af37;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .footer-bottom a {
+            color: #d4af37;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-bottom a:hover {
+            color: white;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+            }
+            
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .transaction-table {
+                font-size: 14px;
+            }
+            
+            .transaction-table th,
+            .transaction-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h1 class="brand-name">The Royal Haven Suites</h1>
+                </div>
+                
+                 <div class="user-menu">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    
+                    <div class="user-dropdown">
+                        <div class="user-avatar" onclick="toggleDropdown()">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                            <a href="user-profile.html"><i class="fas fa-user"></i> Profile</a>
+                            <a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a>
+                            <a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a>
+                            <a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#"><i class="fas fa-question-circle"></i> Help & Support</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="signin.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <a href="home.html" style="display: inline-flex; align-items: center; gap: 8px; color: #d4af37; text-decoration: none; margin-bottom: 20px; font-weight: 600; transition: all 0.3s;">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+    
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                <li><a href="user-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="transactions.html" class="active"><i class="fas fa-credit-card"></i> Transactions</a></li>
+                <li><a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a></li>
+                <li><a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Transaction History</h1>
+                <p class="page-description">View and manage your payment transactions</p>
+            </div>
+            
+            <!-- Transaction Summary Cards -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="card-icon total">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>₹1,24,500</h3>
+                        <p>Total Spent</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="card-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>₹12,000</h3>
+                        <p>Pending Transactions</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="card-icon completed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>₹1,12,500</h3>
+                        <p>Completed Transactions</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="card-icon refunded">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>₹5,000</h3>
+                        <p>Refunded Amount</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transaction Filters -->
+            <div class="transaction-filters">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label for="search">Search</label>
+                        <input type="text" id="search" placeholder="Search transactions...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="status">Status</label>
+                        <select id="status">
+                            <option value="">All Status</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                            <option value="failed">Failed</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="dateFrom">From Date</label>
+                        <input type="date" id="dateFrom">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="dateTo">To Date</label>
+                        <input type="date" id="dateTo">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <button type="button" class="btn btn-primary">Apply Filters</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Transaction Table -->
+            <div class="transaction-table-container">
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="transaction-id">#TRX20230501</td>
+                            <td class="transaction-date">May 15, 2023</td>
+                            <td class="transaction-description">Deluxe Suite Booking - 3 Nights</td>
+                            <td class="transaction-amount debit">-₹18,000</td>
+                            <td><span class="transaction-status status-completed">Completed</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230502</td>
+                            <td class="transaction-date">May 20, 2023</td>
+                            <td class="transaction-description">Room Service - Dinner</td>
+                            <td class="transaction-amount debit">-₹2,500</td>
+                            <td><span class="transaction-status status-completed">Completed</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230503</td>
+                            <td class="transaction-date">May 22, 2023</td>
+                            <td class="transaction-description">Spa Treatment</td>
+                            <td class="transaction-amount debit">-₹4,000</td>
+                            <td><span class="transaction-status status-completed">Completed</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230504</td>
+                            <td class="transaction-date">May 25, 2023</td>
+                            <td class="transaction-description">Presidential Suite Booking - 2 Nights</td>
+                            <td class="transaction-amount debit">-₹25,000</td>
+                            <td><span class="transaction-status status-pending">Pending</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230505</td>
+                            <td class="transaction-date">May 28, 2023</td>
+                            <td class="transaction-description">Cancellation Refund</td>
+                            <td class="transaction-amount credit">+₹5,000</td>
+                            <td><span class="transaction-status status-refunded">Refunded</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230506</td>
+                            <td class="transaction-date">June 2, 2023</td>
+                            <td class="transaction-description">Executive Suite Booking - 5 Nights</td>
+                            <td class="transaction-amount debit">-₹30,000</td>
+                            <td><span class="transaction-status status-completed">Completed</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230507</td>
+                            <td class="transaction-date">June 5, 2023</td>
+                            <td class="transaction-description">Laundry Service</td>
+                            <td class="transaction-amount debit">-₹1,500</td>
+                            <td><span class="transaction-status status-completed">Completed</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230508</td>
+                            <td class="transaction-date">June 8, 2023</td>
+                            <td class="transaction-description">Deluxe Suite Booking - 3 Nights</td>
+                            <td class="transaction-amount debit">-₹18,000</td>
+                            <td><span class="transaction-status status-completed">Completed</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230509</td>
+                            <td class="transaction-date">June 12, 2023</td>
+                            <td class="transaction-description">Payment Failed</td>
+                            <td class="transaction-amount debit">-₹12,000</td>
+                            <td><span class="transaction-status status-failed">Failed</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Retry Payment"><i class="fas fa-redo"></i></button>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="transaction-id">#TRX20230510</td>
+                            <td class="transaction-date">June 15, 2023</td>
+                            <td class="transaction-description">Executive Suite Booking - 4 Nights</td>
+                            <td class="transaction-amount debit">-₹24,000</td>
+                            <td><span class="transaction-status status-pending">Pending</span></td>
+                            <td class="transaction-actions">
+                                <button class="action-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn" title="Download Receipt"><i class="fas fa-download"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>The Royal Haven Suites offers luxurious accommodations and world-class amenities for discerning travelers seeking comfort and elegance.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Our Rooms</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Amenities</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Cancellation Policy</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123, MG Road, Chennai, India</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@royalhavensuites.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 The Royal Haven Suites. All Rights Reserved. | Designed by <a href="#">Royal Web Design</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle user dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const userAvatar = document.querySelector('.user-avatar');
+            
+            if (!userAvatar.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+        
+        // Handle filter form submission
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            // In a real application, this would apply the filters and reload the transaction data
+            const search = document.getElementById('search').value;
+            const status = document.getElementById('status').value;
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+            
+            console.log('Filters applied:', { search, status, dateFrom, dateTo });
+            alert('Filters applied successfully!');
+        });
+        
+        // Handle transaction action buttons
+        document.querySelectorAll('.action-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const title = this.getAttribute('title');
+                const transactionId = this.closest('tr').querySelector('.transaction-id').textContent;
+                
+                if (title === 'View Details') {
+                    // In a real application, this would open a modal or navigate to a details page
+                    alert(`Viewing details for transaction ${transactionId}`);
+                } else if (title === 'Download Receipt') {
+                    // In a real application, this would download a PDF receipt
+                    alert(`Downloading receipt for transaction ${transactionId}`);
+                } else if (title === 'Retry Payment') {
+                    // In a real application, this would initiate a retry payment process
+                    alert(`Initiating retry payment for transaction ${transactionId}`);
+                }
+            });
+        });
+        
+        // Handle pagination
+        document.querySelectorAll('.page-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.page-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // In a real application, this would load the corresponding page of transactions
+                const page = this.textContent;
+                if (page !== '' && !isNaN(page)) {
+                    console.log(`Loading page ${page} of transactions`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
