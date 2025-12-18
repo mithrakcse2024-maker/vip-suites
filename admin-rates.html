@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rates & Offers - The Royal Haven Suites</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .brand-name {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 18px;
+            border: 2px solid #d4af37;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #0a1929;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 70px;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar-menu a.active {
+            border-left: 4px solid #d4af37;
+        }
+        
+        .sidebar-menu a i {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: #0a1929;
+        }
+        
+        .add-rate-btn {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .add-rate-btn:hover {
+            background: linear-gradient(135deg, #1a2332, #0a1929);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 25, 41, 0.3);
+        }
+        
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .tab-btn.active {
+            color: #0a1929;
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #d4af37;
+        }
+        
+        .tab-btn:hover {
+            background-color: #f8f9fa;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Room Rates Section */
+        .room-rates {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .room-rate-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .room-rate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .room-rate-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .room-type {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: rgba(10, 25, 41, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .room-rate-content {
+            padding: 20px;
+        }
+        
+        .room-rate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .room-rate-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0a1929;
+        }
+        
+        .room-rate-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+        
+        .room-rate-price span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6c757d;
+        }
+        
+        .room-rate-features {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+        
+        .room-rate-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .room-rate-features i {
+            color: #d4af37;
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .room-rate-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .edit-btn {
+            background-color: #f8f9fa;
+            color: #0a1929;
+        }
+        
+        .edit-btn:hover {
+            background-color: #e9ecef;
+        }
+        
+        .delete-btn {
+            background-color: #f8f9fa;
+            color: #dc3545;
+        }
+        
+        .delete-btn:hover {
+            background-color: #f1c9c9;
+        }
+        
+        /* Special Offers Section */
+        .special-offers {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .offer-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .offer-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #d4af37;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .offer-content {
+            padding: 20px;
+        }
+        
+        .offer-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0a1929;
+            margin-bottom: 10px;
+        }
+        
+        .offer-description {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .offer-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .offer-detail {
+            text-align: center;
+        }
+        
+        .offer-detail-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0a1929;
+        }
+        
+        .offer-detail-label {
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .offer-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: #0a1929;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #6c757d;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #0a1929;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1a2332, #0a1929);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: #0a1929;
+            border: 1px solid #0a1929;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f8f9fa;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            padding: 40px 20px 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #d4af37;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-section ul li a i {
+            margin-right: 10px;
+            color: #d4af37;
+            font-size: 14px;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .footer-bottom a {
+            color: #d4af37;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-bottom a:hover {
+            color: white;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .room-rates {
+                grid-template-columns: 1fr;
+            }
+            
+            .special-offers {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h1 class="brand-name">The Royal Haven Suites - Admin</h1>
+            </div>
+            
+            <div class="admin-info">
+                <div class="admin-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span>Admin</span>
+                <a href="signin.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="admin-home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="admin-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="admin-rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                <li><a href="admin-suites.html"><i class="fas fa-door-open"></i> Suites</a></li>
+                <li><a href="admin-guests.html"><i class="fas fa-users"></i> Guests</a></li>
+                <li><a href="admin-rates.html" class="active"><i class="fas fa-tag"></i> Rates & Offers</a></li>
+                <li><a href="admin-staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+                <li><a href="admin-settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Rates & Offers</h1>
+                <a href="#" class="add-rate-btn" onclick="openRateModal()">
+                    <i class="fas fa-plus"></i> Add New Rate
+                </a>
+            </div>
+            
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="openTab('room-rates')">Room Rates</button>
+                <button class="tab-btn" onclick="openTab('special-offers')">Special Offers</button>
+            </div>
+            
+            <!-- Room Rates Tab -->
+            <div id="room-rates" class="tab-content active">
+                <div class="room-rates">
+                    <div class="room-rate-card">
+                        <div class="room-rate-img" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                            <div class="room-type">Standard Room</div>
+                        </div>
+                        <div class="room-rate-content">
+                            <div class="room-rate-header">
+                                <div class="room-rate-title">Standard Room</div>
+                                <div class="room-rate-price">₹4,500 <span>/night</span></div>
+                            </div>
+                            <ul class="room-rate-features">
+                                <li><i class="fas fa-check"></i> King Size Bed</li>
+                                <li><i class="fas fa-check"></i> City View</li>
+                                <li><i class="fas fa-check"></i> Free Wi-Fi</li>
+                                <li><i class="fas fa-check"></i> Complimentary Breakfast</li>
+                            </ul>
+                            <div class="room-rate-actions">
+                                <button class="action-btn edit-btn" onclick="editRate(1)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteRate(1)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="room-rate-card">
+                        <div class="room-rate-img" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                            <div class="room-type">Deluxe Room</div>
+                        </div>
+                        <div class="room-rate-content">
+                            <div class="room-rate-header">
+                                <div class="room-rate-title">Deluxe Room</div>
+                                <div class="room-rate-price">₹6,500 <span>/night</span></div>
+                            </div>
+                            <ul class="room-rate-features">
+                                <li><i class="fas fa-check"></i> King Size Bed</li>
+                                <li><i class="fas fa-check"></i> Sea View</li>
+                                <li><i class="fas fa-check"></i> Free Wi-Fi</li>
+                                <li><i class="fas fa-check"></i> Complimentary Breakfast</li>
+                                <li><i class="fas fa-check"></i> Mini Bar</li>
+                            </ul>
+                            <div class="room-rate-actions">
+                                <button class="action-btn edit-btn" onclick="editRate(2)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteRate(2)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="room-rate-card">
+                        <div class="room-rate-img" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                            <div class="room-type">Executive Suite</div>
+                        </div>
+                        <div class="room-rate-content">
+                            <div class="room-rate-header">
+                                <div class="room-rate-title">Executive Suite</div>
+                                <div class="room-rate-price">₹9,500 <span>/night</span></div>
+                            </div>
+                            <ul class="room-rate-features">
+                                <li><i class="fas fa-check"></i> King Size Bed</li>
+                                <li><i class="fas fa-check"></i> Sea View</li>
+                                <li><i class="fas fa-check"></i> Free Wi-Fi</li>
+                                <li><i class="fas fa-check"></i> Complimentary Breakfast</li>
+                                <li><i class="fas fa-check"></i> Mini Bar</li>
+                                <li><i class="fas fa-check"></i> Living Area</li>
+                            </ul>
+                            <div class="room-rate-actions">
+                                <button class="action-btn edit-btn" onclick="editRate(3)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteRate(3)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="room-rate-card">
+                        <div class="room-rate-img" style="background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                            <div class="room-type">Presidential Suite</div>
+                        </div>
+                        <div class="room-rate-content">
+                            <div class="room-rate-header">
+                                <div class="room-rate-title">Presidential Suite</div>
+                                <div class="room-rate-price">₹15,000 <span>/night</span></div>
+                            </div>
+                            <ul class="room-rate-features">
+                                <li><i class="fas fa-check"></i> King Size Bed</li>
+                                <li><i class="fas fa-check"></i> Panoramic View</li>
+                                <li><i class="fas fa-check"></i> Free Wi-Fi</li>
+                                <li><i class="fas fa-check"></i> Complimentary Breakfast</li>
+                                <li><i class="fas fa-check"></i> Mini Bar</li>
+                                <li><i class="fas fa-check"></i> Living Area</li>
+                                <li><i class="fas fa-check"></i> Private Jacuzzi</li>
+                            </ul>
+                            <div class="room-rate-actions">
+                                <button class="action-btn edit-btn" onclick="editRate(4)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteRate(4)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Special Offers Tab -->
+            <div id="special-offers" class="tab-content">
+                <div class="special-offers">
+                    <div class="offer-card">
+                        <div class="offer-img" style="background-image: url('https://images.unsplash.com/photo-1564501049412-a7009373715a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                            <div class="offer-badge">20% OFF</div>
+                        </div>
+                        <div class="offer-content">
+                            <h3 class="offer-title">Summer Special</h3>
+                            <p class="offer-description">Enjoy a 20% discount on all room types when you book a minimum of 3 nights stay.</p>
+                            <div class="offer-details">
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">3+ Nights</div>
+                                    <div class="offer-detail-label">Minimum Stay</div>
+                                </div>
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">20%</div>
+                                    <div class="offer-detail-label">Discount</div>
+                                </div>
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">Valid</div>
+                                    <div class="offer-detail-label">Jun - Aug</div>
+                                </div>
+                            </div>
+                            <div class="offer-actions">
+                                <button class="action-btn edit-btn" onclick="editOffer(1)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteOffer(1)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="offer-card">
+                        <div class="offer-img" style="background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                            <div class="offer-badge">FREE DINNER</div>
+                        </div>
+                        <div class="offer-content">
+                            <h3 class="offer-title">Weekend Getaway</h3>
+                            <p class="offer-description">Book a weekend stay and enjoy complimentary dinner for two at our rooftop restaurant.</p>
+                            <div class="offer-details">
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">2 Nights</div>
+                                    <div class="offer-detail-label">Minimum Stay</div>
+                                </div>
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">FREE</div>
+                                    <div class="offer-detail-label">Dinner</div>
+                                </div>
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">Fri-Sun</div>
+                                    <div class="offer-detail-label">Days</div>
+                                </div>
+                            </div>
+                            <div class="offer-actions">
+                                <button class="action-btn edit-btn" onclick="editOffer(2)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteOffer(2)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="offer-card">
+                        <div class="offer-img" style="background-image: url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')">
+                            <div class="offer-badge">30% OFF</div>
+                        </div>
+                        <div class="offer-content">
+                            <h3 class="offer-title">Early Bird Special</h3>
+                            <p class="offer-description">Book 30 days in advance and get a 30% discount on your stay.</p>
+                            <div class="offer-details">
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">30 Days</div>
+                                    <div class="offer-detail-label">Advance Booking</div>
+                                </div>
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">30%</div>
+                                    <div class="offer-detail-label">Discount</div>
+                                </div>
+                                <div class="offer-detail">
+                                    <div class="offer-detail-value">All Year</div>
+                                    <div class="offer-detail-label">Availability</div>
+                                </div>
+                            </div>
+                            <div class="offer-actions">
+                                <button class="action-btn edit-btn" onclick="editOffer(3)">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteOffer(3)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Rate Modal -->
+    <div class="modal" id="rateModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add/Edit Room Rate</h3>
+                <button class="modal-close" onclick="closeRateModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="rateForm">
+                    <div class="form-group">
+                        <label for="roomType">Room Type</label>
+                        <select id="roomType" required>
+                            <option value="">Select Room Type</option>
+                            <option value="standard">Standard Room</option>
+                            <option value="deluxe">Deluxe Room</option>
+                            <option value="executive">Executive Suite</option>
+                            <option value="presidential">Presidential Suite</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="roomRate">Rate per Night (₹)</label>
+                        <input type="number" id="roomRate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="roomFeatures">Features (comma separated)</label>
+                        <textarea id="roomFeatures" rows="4" placeholder="e.g., King Size Bed, Sea View, Free Wi-Fi"></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeRateModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveRate()">Save Rate</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Offer Modal -->
+    <div class="modal" id="offerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add/Edit Special Offer</h3>
+                <button class="modal-close" onclick="closeOfferModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="offerForm">
+                    <div class="form-group">
+                        <label for="offerTitle">Offer Title</label>
+                        <input type="text" id="offerTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="offerDescription">Description</label>
+                        <textarea id="offerDescription" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="offerDiscount">Discount (%)</label>
+                            <input type="number" id="offerDiscount" min="0" max="100" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="offerValidity">Validity Period</label>
+                            <input type="text" id="offerValidity" placeholder="e.g., Jun - Aug" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="offerConditions">Conditions</label>
+                        <textarea id="offerConditions" rows="3" placeholder="e.g., Minimum 3 nights stay"></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeOfferModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveOffer()">Save Offer</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About The Royal Haven Suites</h3>
+                    <p>The Royal Haven Suites offers luxurious accommodations and world-class amenities for discerning travelers seeking comfort and elegance.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="admin-rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                        <li><a href="admin-suites.html"><i class="fas fa-door-open"></i> Suites</a></li>
+                        <li><a href="admin-guests.html"><i class="fas fa-users"></i> Guests</a></li>
+                        <li><a href="admin-rates.html"><i class="fas fa-tag"></i> Rates & Offers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Our Locations</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Triplicane</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> T. Nagar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> OMR</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Koyambedu</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Tambaram</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                        <li><a href="mailto:info@royalhavensuites.com"><i class="fas fa-envelope"></i> info@royalhavensuites.com</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> 24/7 Customer Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 The Royal Haven Suites. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Tab functionality
+        function openTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab button
+            event.target.classList.add('active');
+        }
+        
+        // Modal functionality for rates
+        function openRateModal() {
+            document.getElementById('rateModal').classList.add('active');
+        }
+        
+        function closeRateModal() {
+            document.getElementById('rateModal').classList.remove('active');
+        }
+        
+        function saveRate() {
+            // In a real application, this would save the rate to the database
+            alert('Rate saved successfully!');
+            closeRateModal();
+        }
+        
+        function editRate(rateId) {
+            // In a real application, this would load the rate data into the form
+            openRateModal();
+            alert('Editing rate: ' + rateId);
+        }
+        
+        function deleteRate(rateId) {
+            // In a real application, this would delete the rate from the database
+            if (confirm('Are you sure you want to delete this rate?')) {
+                alert('Rate deleted successfully!');
+            }
+        }
+        
+        // Modal functionality for offers
+        function openOfferModal() {
+            document.getElementById('offerModal').classList.add('active');
+        }
+        
+        function closeOfferModal() {
+            document.getElementById('offerModal').classList.remove('active');
+        }
+        
+        function saveOffer() {
+            // In a real application, this would save the offer to the database
+            alert('Offer saved successfully!');
+            closeOfferModal();
+        }
+        
+        function editOffer(offerId) {
+            // In a real application, this would load the offer data into the form
+            openOfferModal();
+            alert('Editing offer: ' + offerId);
+        }
+        
+        function deleteOffer(offerId) {
+            // In a real application, this would delete the offer from the database
+            if (confirm('Are you sure you want to delete this offer?')) {
+                alert('Offer deleted successfully!');
+            }
+        }
+    </script>
+</body>
+</html>
