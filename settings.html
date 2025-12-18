@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Royal Haven Suites - Settings</title>
+    <title>Settings - The Royal Haven Suites</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Global Styles */
@@ -91,7 +91,8 @@
             align-items: center;
             justify-content: center;
         }
-         .user-avatar {
+        
+        .user-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -108,8 +109,8 @@
         }
         
         .user-avatar:hover {
-            background-color: rgba(255, 255, 255, 0.3);
             transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
         }
         
         .user-dropdown {
@@ -213,6 +214,23 @@
             padding: 30px;
         }
         
+        /* Back to Home Button */
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #d4af37;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .back-home:hover {
+            color: #b21f1f;
+            transform: translateX(-5px);
+        }
+        
         /* Page Header */
         .page-header {
             margin-bottom: 30px;
@@ -224,75 +242,95 @@
             margin-bottom: 10px;
         }
         
-        .page-description {
+        .page-subtitle {
             color: #6c757d;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
-        /* Settings Sections */
-        .settings-container {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 30px;
-        }
-        
+        /* Settings Tabs */
         .settings-tabs {
+            display: flex;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 20px 0;
-            height: fit-content;
+            margin-bottom: 30px;
+            overflow: hidden;
         }
         
-        .tab-item {
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #6c757d;
             cursor: pointer;
             transition: all 0.3s;
-            color: #6c757d;
+            position: relative;
         }
         
-        .tab-item.active {
-            background-color: rgba(212, 175, 55, 0.1);
-            color: #d4af37;
-            border-left: 4px solid #d4af37;
+        .tab-btn.active {
+            color: #0a1929;
         }
         
-        .tab-item:hover {
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #d4af37;
+        }
+        
+        .tab-btn:hover {
             background-color: #f8f9fa;
         }
         
-        .tab-item i {
-            margin-right: 10px;
-            font-size: 18px;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .settings-content {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 30px;
-        }
-        
-        .settings-section {
+        /* Tab Content */
+        .tab-content {
             display: none;
         }
         
-        .settings-section.active {
+        .tab-content.active {
             display: block;
         }
         
-        .section-title {
-            font-size: 1.5rem;
-            color: #0a1929;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
+        /* Settings Section */
+        .settings-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            overflow: hidden;
         }
         
+        .settings-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .settings-title {
+            font-size: 1.3rem;
+            color: #0a1929;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .settings-title i {
+            color: #d4af37;
+        }
+        
+        .settings-body {
+            padding: 20px;
+        }
+        
+        /* Form Styles */
         .form-group {
             margin-bottom: 20px;
         }
@@ -308,11 +346,10 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 10px 15px;
             border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 5px;
             font-size: 14px;
-            transition: all 0.3s;
         }
         
         .form-group input:focus,
@@ -320,195 +357,71 @@
         .form-group textarea:focus {
             outline: none;
             border-color: #d4af37;
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
         
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
         
-        .form-group small {
-            display: block;
-            margin-top: 5px;
+        .form-help {
+            font-size: 12px;
             color: #6c757d;
+            margin-top: 5px;
         }
         
-        .form-group .checkbox-group {
+        /* Toggle Switch */
+        .toggle-container {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .form-group .checkbox-group input {
-            width: auto;
-            margin-right: 10px;
-        }
-        
-        .form-group .checkbox-group label {
-            margin-bottom: 0;
-            font-weight: normal;
-        }
-        
-        .password-strength {
-            margin-top: 5px;
-            height: 5px;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .password-strength-meter {
-            height: 100%;
-            width: 0;
-            transition: all 0.3s;
-        }
-        
-        .password-strength-meter.weak {
-            width: 33%;
-            background-color: #dc3545;
-        }
-        
-        .password-strength-meter.medium {
-            width: 66%;
-            background-color: #ffc107;
-        }
-        
-        .password-strength-meter.strong {
-            width: 100%;
-            background-color: #28a745;
-        }
-        
-        .notification-item {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 20px;
         }
         
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-        
-        .notification-info h4 {
-            margin-bottom: 5px;
+        .toggle-label {
+            font-weight: 600;
             color: #0a1929;
-        }
-        
-        .notification-info p {
-            color: #6c757d;
-            font-size: 14px;
         }
         
         .toggle-switch {
             position: relative;
             width: 50px;
             height: 24px;
+            background-color: #ccc;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
         
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
+        .toggle-switch.active {
+            background-color: #d4af37;
         }
         
         .toggle-slider {
             position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
-        
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
             background-color: white;
-            transition: .4s;
             border-radius: 50%;
+            transition: transform 0.3s;
         }
         
-        input:checked + .toggle-slider {
-            background-color: #d4af37;
-        }
-        
-        input:checked + .toggle-slider:before {
+        .toggle-switch.active .toggle-slider {
             transform: translateX(26px);
-        }
-        
-        .connected-account {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .account-info {
-            display: flex;
-            align-items: center;
-        }
-        
-        .account-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            color: #0a1929;
-        }
-        
-        .account-details h4 {
-            margin-bottom: 5px;
-            color: #0a1929;
-        }
-        
-        .account-details p {
-            color: #6c757d;
-            font-size: 14px;
-        }
-        
-        .account-status {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .status-connected {
-            background-color: rgba(40, 167, 69, 0.1);
-            color: #28a745;
-        }
-        
-        .status-disconnected {
-            background-color: rgba(220, 53, 69, 0.1);
-            color: #dc3545;
         }
         
         /* Button Styles */
         .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 5px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             border: none;
-            margin-right: 10px;
         }
         
         .btn-primary {
@@ -518,8 +431,6 @@
         
         .btn-primary:hover {
             background: linear-gradient(135deg, #1a2332, #0a1929);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(10, 25, 41, 0.3);
         }
         
         .btn-secondary {
@@ -541,8 +452,52 @@
             background-color: #c82333;
         }
         
-        .btn-group {
-            margin-top: 30px;
+        /* Security Settings */
+        .security-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .security-item:last-child {
+            border-bottom: none;
+        }
+        
+        .security-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #0a1929;
+        }
+        
+        .security-info p {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        /* Privacy Settings */
+        .privacy-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .privacy-item:last-child {
+            border-bottom: none;
+        }
+        
+        .privacy-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #0a1929;
+        }
+        
+        .privacy-info p {
+            font-size: 14px;
+            color: #6c757d;
         }
         
         /* Footer Styles */
@@ -550,7 +505,6 @@
             background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
             color: white;
             padding: 40px 20px 20px;
-            margin-top: 40px;
         }
         
         .footer-content {
@@ -575,7 +529,7 @@
             left: 0;
             width: 50px;
             height: 2px;
-            background-color: #d4af37;
+            background-color: #b21f1f;
         }
         
         .footer-section p {
@@ -631,7 +585,7 @@
         }
         
         .social-links a:hover {
-            background-color: #d4af37;
+            background-color: #b21f1f;
             transform: translateY(-3px);
         }
         
@@ -650,7 +604,7 @@
         }
         
         .footer-bottom a:hover {
-            color: white;
+            color: #b21f1f;
         }
         
         /* Responsive Styles */
@@ -665,25 +619,32 @@
                 height: auto;
             }
             
-            .settings-container {
+            .form-row {
                 grid-template-columns: 1fr;
             }
-            
+        }
+        
+        @media (max-width: 768px) {
             .settings-tabs {
-                display: flex;
-                overflow-x: auto;
-                padding: 10px 0;
+                flex-direction: column;
             }
             
-            .tab-item {
-                white-space: nowrap;
-                padding: 10px 15px;
+            .tab-btn {
+                border-bottom: 1px solid #e0e0e0;
+            }
+            
+            .tab-btn.active::after {
+                width: 3px;
+                height: 100%;
+                top: 0;
+                left: 0;
+                bottom: auto;
             }
         }
     </style>
 </head>
 <body>
-     <!-- Header -->
+    <!-- Header -->
     <header>
         <div class="container">
             <nav>
@@ -710,9 +671,9 @@
                             <a href="user-profile.html"><i class="fas fa-user"></i> Profile</a>
                             <a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a>
                             <a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a>
-                            <a href="reviews.html" class="active"><i class="fas fa-star"></i> My Reviews</a>
+                            <a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a>
                             <div class="dropdown-divider"></div>
-                            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a>
                             <a href="#"><i class="fas fa-question-circle"></i> Help & Support</a>
                             <div class="dropdown-divider"></div>
                             <a href="signin.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
@@ -722,328 +683,352 @@
             </nav>
         </div>
     </header>
-      <div class="container">
-        <a href="home.html" style="display: inline-flex; align-items: center; gap: 8px; color: #d4af37; text-decoration: none; margin-bottom: 20px; font-weight: 600; transition: all 0.3s;">
+    <div class="container" style="padding: 20px 0;">
+        <a href="home.html" style="display: inline-flex; align-items: center; gap: 8px; color: #d4af37; text-decoration: none; font-weight: 600; transition: all 0.3s;">
             <i class="fas fa-arrow-left"></i> Back to Home
         </a>
     </div>
+          
     
     <!-- Dashboard Layout -->
     <div class="dashboard-layout">
-       <!-- Sidebar -->
+        <!-- Sidebar -->
         <aside class="sidebar">
             <ul class="sidebar-menu">
                 <li><a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
-                <li><a href="user-profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="user-profile.html"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="transactions.html"><i class="fas fa-credit-card"></i> Transactions</a></li>
                 <li><a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a></li>
                 <li><a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a></li>
-                <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
         </aside>
+        
         <!-- Main Content -->
         <main class="main-content">
+           
+            
             <!-- Page Header -->
             <div class="page-header">
                 <h1 class="page-title">Settings</h1>
-                <p class="page-description">Manage your account settings and preferences</p>
+                <p class="page-subtitle">Manage your account preferences and privacy settings</p>
             </div>
             
-            <!-- Settings Container -->
-            <div class="settings-container">
-                <!-- Settings Tabs -->
-                <div class="settings-tabs">
-                    <div class="tab-item active" onclick="showTab('account')">
-                        <i class="fas fa-user"></i>
-                        <span>Account</span>
+            <!-- Settings Tabs -->
+            <div class="settings-tabs">
+                <button class="tab-btn active" onclick="openTab('general')">General</button>
+                <button class="tab-btn" onclick="openTab('notifications')">Notifications</button>
+                <button class="tab-btn" onclick="openTab('privacy')">Privacy</button>
+                <button class="tab-btn" onclick="openTab('security')">Security</button>
+            </div>
+            
+            <!-- General Settings Tab -->
+            <div id="general" class="tab-content active">
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3 class="settings-title">
+                            <i class="fas fa-user"></i> Personal Information
+                        </h3>
                     </div>
-                    <div class="tab-item" onclick="showTab('security')">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Security</span>
-                    </div>
-                    <div class="tab-item" onclick="showTab('notifications')">
-                        <i class="fas fa-bell"></i>
-                        <span>Notifications</span>
-                    </div>
-                    <div class="tab-item" onclick="showTab('privacy')">
-                        <i class="fas fa-lock"></i>
-                        <span>Privacy</span>
-                    </div>
-                    <div class="tab-item" onclick="showTab('connected')">
-                        <i class="fas fa-link"></i>
-                        <span>Connected Accounts</span>
+                    <div class="settings-body">
+                        <form id="personalForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" value="Alex">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" value="Johnson">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" value="alex.johnson@email.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" value="+91 98765 43210">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea id="address" rows="3">123 Marina Beach Road, Chennai, Tamil Nadu 600005, India</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 
-                <!-- Settings Content -->
-                <div class="settings-content">
-                    <!-- Account Settings -->
-                    <div class="settings-section active" id="account">
-                        <h2 class="section-title">Account Settings</h2>
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3 class="settings-title">
+                            <i class="fas fa-globe"></i> Preferences
+                        </h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="language">Language</label>
+                                <select id="language">
+                                    <option value="english" selected>English</option>
+                                    <option value="hindi">Hindi</option>
+                                    <option value="tamil">Tamil</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="currency">Currency</label>
+                                <select id="currency">
+                                    <option value="inr" selected>Indian Rupee (₹)</option>
+                                    <option value="usd">US Dollar ($)</option>
+                                    <option value="eur">Euro (€)</option>
+                                </select>
+                            </div>
+                        </div>
                         
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" value="rahulsharma">
-                            <small>This is your public display name</small>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="dateFormat">Date Format</label>
+                                <select id="dateFormat">
+                                    <option value="dd/mm/yyyy" selected>DD/MM/YYYY</option>
+                                    <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                                    <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeFormat">Time Format</label>
+                                <select id="timeFormat">
+                                    <option value="12-hour" selected>12-hour</option>
+                                    <option value="24-hour">24-hour</option>
+                                </select>
+                            </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" value="rahul.sharma@email.com">
-                            <small>We will never share your email with anyone</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" value="+91 98765 43210">
-                            <small>Include country code for international numbers</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="language">Language</label>
-                            <select id="language">
-                                <option value="english" selected>English</option>
-                                <option value="hindi">Hindi</option>
-                                <option value="tamil">Tamil</option>
-                                <option value="telugu">Telugu</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="timezone">Timezone</label>
-                            <select id="timezone">
-                                <option value="ist" selected>India Standard Time (IST)</option>
-                                <option value="pst">Pacific Standard Time (PST)</option>
-                                <option value="est">Eastern Standard Time (EST)</option>
-                                <option value="gmt">Greenwich Mean Time (GMT)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                            <button type="button" class="btn btn-primary">Save Changes</button>
+                            <button type="submit" class="btn btn-primary">Save Preferences</button>
                         </div>
                     </div>
-                    
-                    <!-- Security Settings -->
-                    <div class="settings-section" id="security">
-                        <h2 class="section-title">Security Settings</h2>
+                </div>
+            </div>
+            
+            <!-- Notifications Settings Tab -->
+            <div id="notifications" class="tab-content">
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3 class="settings-title">
+                            <i class="fas fa-bell"></i> Email Notifications
+                        </h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="toggle-container">
+                            <div class="toggle-label">Booking Confirmations</div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-label">Promotional Offers</div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-label">Reward Updates</div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-label">Newsletter</div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
                         
                         <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Save Notification Settings</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3 class="settings-title">
+                            <i class="fas fa-mobile-alt"></i> SMS Notifications
+                        </h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="toggle-container">
+                            <div class="toggle-label">Booking Reminders</div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-label">Emergency Alerts</div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="smsNumber">SMS Phone Number</label>
+                            <input type="tel" id="smsNumber" value="+91 98765 43210">
+                            <p class="form-help">Enter phone number to receive SMS notifications</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Save SMS Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Privacy Settings Tab -->
+            <div id="privacy" class="tab-content">
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3 class="settings-title">
+                            <i class="fas fa-lock"></i> Privacy Settings
+                        </h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="privacy-item">
+                            <div class="privacy-info">
+                                <h4>Profile Visibility</h4>
+                                <p>Control who can see your profile information</p>
+                            </div>
+                            <select class="form-group" style="width: 200px;">
+                                <option value="public" selected>Public</option>
+                                <option value="members">Members Only</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+                        
+                        <div class="privacy-item">
+                            <div class="privacy-info">
+                                <h4>Show Email Address</h4>
+                                <p>Display your email in public profile</p>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="privacy-item">
+                            <div class="privacy-info">
+                                <h4>Show Phone Number</h4>
+                                <p>Display your phone number in public profile</p>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="privacy-item">
+                            <div class="privacy-info">
+                                <h4>Share Booking History</h4>
+                                <p>Allow others to see your booking history</p>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Save Privacy Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Security Settings Tab -->
+            <div id="security" class="tab-content">
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3 class="settings-title">
+                            <i class="fas fa-shield-alt"></i> Password & Security
+                        </h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="form-group">
                             <label for="currentPassword">Current Password</label>
-                            <input type="password" id="currentPassword">
+                            <input type="password" id="currentPassword" placeholder="Enter current password">
                         </div>
                         
                         <div class="form-group">
                             <label for="newPassword">New Password</label>
-                            <input type="password" id="newPassword" onkeyup="checkPasswordStrength(this.value)">
-                            <div class="password-strength">
-                                <div class="password-strength-meter" id="passwordStrengthMeter"></div>
-                            </div>
-                            <small id="passwordStrengthText">Password strength: None</small>
+                            <input type="password" id="newPassword" placeholder="Enter new password">
+                            <p class="form-help">Password must be at least 8 characters long and contain uppercase, lowercase, numbers, and special characters</p>
                         </div>
                         
                         <div class="form-group">
                             <label for="confirmPassword">Confirm New Password</label>
-                            <input type="password" id="confirmPassword">
+                            <input type="password" id="confirmPassword" placeholder="Confirm new password">
                         </div>
                         
                         <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="twoFactor" checked>
-                                <label for="twoFactor">Enable Two-Factor Authentication</label>
-                            </div>
-                            <small>Add an extra layer of security to your account</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="loginAlerts" checked>
-                                <label for="loginAlerts">Email me on new login</label>
-                            </div>
-                            <small>Get notified when someone logs into your account</small>
-                        </div>
-                        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                            <button type="button" class="btn btn-primary">Update Password</button>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
                         </div>
                     </div>
-                    
-                    <!-- Notification Settings -->
-                    <div class="settings-section" id="notifications">
-                        <h2 class="section-title">Notification Settings</h2>
-                        
-                        <div class="notification-item">
-                            <div class="notification-info">
-                                <h4>Booking Confirmations</h4>
-                                <p>Receive notifications when your booking is confirmed</p>
+                </div>
+                
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3 class="settings-title">
+                            <i class="fas fa-key"></i> Two-Factor Authentication
+                        </h3>
+                    </div>
+                    <div class="settings-body">
+                        <div class="security-item">
+                            <div class="security-info">
+                                <h4>Enable Two-Factor Authentication</h4>
+                                <p>Add an extra layer of security to your account</p>
                             </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
                         </div>
                         
-                        <div class="notification-item">
-                            <div class="notification-info">
-                                <h4>Booking Reminders</h4>
-                                <p>Get reminders before your check-in date</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
+                        <div class="form-group">
+                            <label for="authMethod">Authentication Method</label>
+                            <select id="authMethod">
+                                <option value="sms">SMS</option>
+                                <option value="email">Email</option>
+                                <option value="app">Authenticator App</option>
+                            </select>
                         </div>
                         
-                        <div class="notification-item">
-                            <div class="notification-info">
-                                <h4>Special Offers</h4>
-                                <p>Receive exclusive deals and promotions</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        
-                        <div class="notification-item">
-                            <div class="notification-info">
-                                <h4>Newsletter</h4>
-                                <p>Stay updated with our latest news and events</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        
-                        <div class="notification-item">
-                            <div class="notification-info">
-                                <h4>Account Updates</h4>
-                                <p>Get notified about changes to your account</p>
-                            </div>
-                            <label class="toggle-switch">
-                                <input type="checkbox" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary">Save Preferences</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Setup Two-Factor Authentication</button>
                         </div>
                     </div>
-                    
-                    <!-- Privacy Settings -->
-                    <div class="settings-section" id="privacy">
-                        <h2 class="section-title">Privacy Settings</h2>
-                        
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="profileVisibility" checked>
-                                <label for="profileVisibility">Make my profile visible to other guests</label>
-                            </div>
-                            <small>Other guests can see your profile information</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="reviewsVisibility" checked>
-                                <label for="reviewsVisibility">Make my reviews public</label>
-                            </div>
-                            <small>Your reviews will be visible to all users</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="activityStatus">
-                                <label for="activityStatus">Show my activity status</label>
-                            </div>
-                            <small>Others can see when you're online or recently active</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="dataAnalytics" checked>
-                                <label for="dataAnalytics">Allow data analytics</label>
-                            </div>
-                            <small>Help us improve our services by sharing anonymous usage data</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="personalizedAds">
-                                <label for="personalizedAds">Receive personalized advertisements</label>
-                            </div>
-                            <small>Get ads that are relevant to your interests</small>
-                        </div>
-                        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                            <button type="button" class="btn btn-primary">Update Privacy Settings</button>
-                        </div>
+                </div>
+                
+                <div class="settings-section">
+                    <div class="settings-header">
+                        <h3 class="settings-title">
+                            <i class="fas fa-sign-out-alt"></i> Account Actions
+                        </h3>
                     </div>
-                    
-                    <!-- Connected Accounts -->
-                    <div class="settings-section" id="connected">
-                        <h2 class="section-title">Connected Accounts</h2>
-                        
-                        <div class="connected-account">
-                            <div class="account-info">
-                                <div class="account-icon">
-                                    <i class="fab fa-google"></i>
-                                </div>
-                                <div class="account-details">
-                                    <h4>Google</h4>
-                                    <p>rahul.sharma@gmail.com</p>
-                                </div>
-                            </div>
-                            <div class="account-status status-connected">Connected</div>
+                    <div class="settings-body">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary" onclick="downloadData()">Download My Data</button>
                         </div>
                         
-                        <div class="connected-account">
-                            <div class="account-info">
-                                <div class="account-icon">
-                                    <i class="fab fa-facebook"></i>
-                                </div>
-                                <div class="account-details">
-                                    <h4>Facebook</h4>
-                                    <p>Not connected</p>
-                                </div>
-                            </div>
-                            <div class="account-status status-disconnected">Disconnected</div>
-                        </div>
-                        
-                        <div class="connected-account">
-                            <div class="account-info">
-                                <div class="account-icon">
-                                    <i class="fab fa-twitter"></i>
-                                </div>
-                                <div class="account-details">
-                                    <h4>Twitter</h4>
-                                    <p>Not connected</p>
-                                </div>
-                            </div>
-                            <div class="account-status status-disconnected">Disconnected</div>
-                        </div>
-                        
-                        <div class="connected-account">
-                            <div class="account-info">
-                                <div class="account-icon">
-                                    <i class="fab fa-linkedin"></i>
-                                </div>
-                                <div class="account-details">
-                                    <h4>LinkedIn</h4>
-                                    <p>Not connected</p>
-                                </div>
-                            </div>
-                            <div class="account-status status-disconnected">Disconnected</div>
-                        </div>
-                        
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-secondary">Disconnect All</button>
-                            <button type="button" class="btn btn-primary">Add Account</button>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger" onclick="deleteAccount()">Delete Account</button>
                         </div>
                     </div>
                 </div>
@@ -1056,50 +1041,52 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>About Us</h3>
-                    <p>The Royal Haven Suites offers luxurious accommodations and world-class amenities for discerning travelers seeking comfort and elegance.</p>
+                    <h3>About The Royal Haven Suites</h3>
+                    <p>Experience the pinnacle of luxury hospitality in Chennai. Our premium properties offer unparalleled comfort, elegance, and world-class service for the discerning traveler.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> About Us</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Our Rooms</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Amenities</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Gallery</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                        <li><a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="user-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                        <li><a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                        <li><a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a></li>
+                        <li><a href="transactions.html"><i class="fas fa-exchange-alt"></i> Transactions</a></li>
+                        <li><a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Customer Service</h3>
+                    <h3>Our Locations</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Help Center</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Terms of Service</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Privacy Policy</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> Cancellation Policy</a></li>
-                        <li><a href="#"><i class="fas fa-angle-right"></i> FAQ</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Triplicane</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> T. Nagar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> OMR</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Koyambedu</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Tambaram</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Contact Info</h3>
+                    <h3>Contact Us</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123, MG Road, Chennai, India</a></li>
-                        <li><a href="#"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> info@royalhavensuites.com</a></li>
+                        <li><a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                        <li><a href="mailto:info@royalhavensuites.com"><i class="fas fa-envelope"></i> info@royalhavensuites.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> 24/7 Customer Support</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> Live Chat Available</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 The Royal Haven Suites. All Rights Reserved. | Designed by <a href="#">Royal Web Design</a></p>
+                <p>&copy; 2023 The Royal Haven Suites. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
             </div>
         </div>
     </footer>
@@ -1121,79 +1108,40 @@
             }
         });
         
-        // Show selected tab
-        function showTab(tabName) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.settings-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
+        // Tab functionality
+        function openTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
             });
             
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.tab-item');
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
             });
             
-            // Show selected section
+            // Show selected tab content
             document.getElementById(tabName).classList.add('active');
             
-            // Add active class to clicked tab
-            event.currentTarget.classList.add('active');
+            // Add active class to clicked tab button
+            event.target.classList.add('active');
         }
         
-        // Check password strength
-        function checkPasswordStrength(password) {
-            const meter = document.getElementById('passwordStrengthMeter');
-            const text = document.getElementById('passwordStrengthText');
-            
-            // Reset classes
-            meter.classList.remove('weak', 'medium', 'strong');
-            
-            if (password.length === 0) {
-                meter.style.width = '0';
-                text.textContent = 'Password strength: None';
-                return;
-            }
-            
-            // Check password strength
-            let strength = 0;
-            
-            // Length check
-            if (password.length >= 8) {
-                strength += 1;
-            }
-            
-            // Contains lowercase
-            if (/[a-z]/.test(password)) {
-                strength += 1;
-            }
-            
-            // Contains uppercase
-            if (/[A-Z]/.test(password)) {
-                strength += 1;
-            }
-            
-            // Contains number
-            if (/[0-9]/.test(password)) {
-                strength += 1;
-            }
-            
-            // Contains special character
-            if (/[^A-Za-z0-9]/.test(password)) {
-                strength += 1;
-            }
-            
-            // Update UI based on strength
-            if (strength <= 2) {
-                meter.classList.add('weak');
-                text.textContent = 'Password strength: Weak';
-            } else if (strength <= 3) {
-                meter.classList.add('medium');
-                text.textContent = 'Password strength: Medium';
-            } else {
-                meter.classList.add('strong');
-                text.textContent = 'Password strength: Strong';
+        // Toggle switch functionality
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+        
+        // Settings functions
+        function downloadData() {
+            alert('Downloading your data...');
+        }
+        
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                alert('Account deletion initiated. You will receive a confirmation email.');
             }
         }
     </script>
