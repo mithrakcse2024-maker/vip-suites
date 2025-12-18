@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Royal Haven Suites - Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #b21f1f;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+        
+        .user-dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .dropdown-menu.active {
+            display: block;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .dropdown-menu a i {
+            margin-right: 10px;
+            color: #d4af37;
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 5px 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .search-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-form .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .search-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .search-form input, .search-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-btn {
+            background: linear-gradient(135deg, #b21f1f, #8a1818);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-end;
+        }
+        
+        .search-btn:hover {
+            background: linear-gradient(135deg, #8a1818, #b21f1f);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(178, 31, 31, 0.3);
+        }
+        
+        /* Suites Section */
+        .suites {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #0a1929;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #d4af37, #b21f1f);
+        }
+        
+        .suites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .suite-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .suite-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .suite-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .suite-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #d4af37;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .suite-content {
+            padding: 25px;
+        }
+        
+        .suite-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #0a1929;
+        }
+        
+        .suite-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .suite-feature {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .suite-feature i {
+            margin-right: 5px;
+            color: #d4af37;
+        }
+        
+        .suite-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0a1929;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #555;
+        }
+        
+        .btn-book {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-book:hover {
+            background: linear-gradient(135deg, #1a2332, #0a1929);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 25, 41, 0.3);
+        }
+        
+        /* Offers Section */
+        .offers {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .offer-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .offer-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .offer-discount {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #b21f1f;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .offer-content {
+            padding: 25px;
+        }
+        
+        .offer-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #0a1929;
+        }
+        
+        .offer-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .offer-validity {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .offer-validity i {
+            margin-right: 5px;
+            color: #d4af37;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+        }
+        
+        .testimonials .section-title h2 {
+            color: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 80px;
+            color: rgba(212, 175, 55, 0.2);
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .rating {
+            color: #d4af37;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #b8860b, #d4af37);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #b21f1f;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-section ul li a i {
+            margin-right: 10px;
+            color: #d4af37;
+            font-size: 14px;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background-color: #b21f1f;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .footer-bottom a {
+            color: #d4af37;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-bottom a:hover {
+            color: #b21f1f;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+            
+            .search-form {
+                flex-direction: column;
+            }
+            
+            .search-form .form-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h1 class="brand-name">The Royal Haven Suites</h1>
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Suites</a></li>
+                    <li><a href="#">Amenities</a></li>
+                    <li><a href="#">Offers</a></li>
+                    <li><a href="#">Locations</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                
+                <div class="user-menu">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    
+                    <div class="user-dropdown">
+                        <div class="user-avatar" onclick="toggleDropdown()">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                            <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a>
+                            <a href="rewards.html"><i class="fas fa-gift"></i> Rewards & Wallet</a>
+                            <a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#"><i class="fas fa-question-circle"></i> Help & Support</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="signin.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Find Your Perfect Stay</h1>
+                <p>Discover luxury accommodations tailored to your preferences</p>
+                
+                <div class="search-container">
+                    <form class="search-form">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <select id="location">
+                                <option value="">All Locations</option>
+                                <option value="triplicane">Triplicane</option>
+                                <option value="tnagar">T. Nagar</option>
+                                <option value="omr">OMR</option>
+                                <option value="koyambedu">Koyambedu</option>
+                                <option value="tambaram">Tambaram</option>
+                                <option value="pallavaram">Pallavaram</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="checkin">Check-in</label>
+                            <input type="date" id="checkin">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="checkout">Check-out</label>
+                            <input type="date" id="checkout">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="guests">Guests</label>
+                            <select id="guests">
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5+">5+ Guests</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="search-btn">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Suites Section -->
+    <section class="suites">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Premium Suites</h2>
+            </div>
+            
+            <div class="suites-grid">
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <span class="suite-badge">Most Popular</span>
+                    </div>
+                    <div class="suite-content">
+                        <h3>Deluxe Suite</h3>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> King Size Bed
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 2 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 450 sqft
+                            </div>
+                        </div>
+                        <p>Experience luxury in our spacious deluxe suites with panoramic city views and premium amenities.</p>
+                        <div class="suite-price">
+                            <div class="price">
+                                ₹8,500 <span>/night</span>
+                            </div>
+                            <a href="#" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <span class="suite-badge">Best Value</span>
+                    </div>
+                    <div class="suite-content">
+                        <h3>Executive Suite</h3>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> King Size Bed
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 2 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 550 sqft
+                            </div>
+                        </div>
+                        <p>Perfect for business travelers with a dedicated workspace and premium business amenities.</p>
+                        <div class="suite-price">
+                            <div class="price">
+                                ₹12,000 <span>/night</span>
+                            </div>
+                            <a href="#" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1582719508461-905c673771a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <span class="suite-badge">Luxury</span>
+                    </div>
+                    <div class="suite-content">
+                        <h3>Presidential Suite</h3>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> King Size Bed
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 4 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 1200 sqft
+                            </div>
+                        </div>
+                        <p>The epitome of luxury with separate living area, private terrace, and personalized butler service.</p>
+                        <div class="suite-price">
+                            <div class="price">
+                                ₹25,000 <span>/night</span>
+                            </div>
+                            <a href="#" class="btn-book">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Offers Section -->
+    <section class="offers">
+        <div class="container">
+            <div class="section-title">
+                <h2>Exclusive Offers</h2>
+            </div>
+            
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-img" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <span class="offer-discount">25% OFF</span>
+                    </div>
+                    <div class="offer-content">
+                        <h3>Weekend Getaway</h3>
+                        <p>Enjoy a relaxing weekend with our special package including breakfast and spa credit.</p>
+                        <div class="offer-validity">
+                            <i class="fas fa-calendar-alt"></i> Valid until Dec 31, 2023
+                        </div>
+                        <a href="#" class="btn-book">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-img" style="background-image: url('https://images.unsplash.com/photo-1564501049412-a9599ec5ee8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <span class="offer-discount">30% OFF</span>
+                    </div>
+                    <div class="offer-content">
+                        <h3>Extended Stay</h3>
+                        <p>Stay for 5 nights or more and enjoy a 30% discount along with complimentary laundry service.</p>
+                        <div class="offer-validity">
+                            <i class="fas fa-calendar-alt"></i> Valid until Jan 15, 2024
+                        </div>
+                        <a href="#" class="btn-book">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-img" style="background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <span class="offer-discount">20% OFF</span>
+                    </div>
+                    <div class="offer-content">
+                        <h3>Early Bird Special</h3>
+                        <p>Book 30 days in advance and save 20% on your stay with complimentary airport transfer.</p>
+                        <div class="offer-validity">
+                            <i class="fas fa-calendar-alt"></i> Ongoing offer
+                        </div>
+                        <a href="#" class="btn-book">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Guests Say</h2>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>Our stay at The Royal Haven Suites was nothing short of exceptional. The attention to detail, impeccable service, and luxurious amenities made our anniversary celebration truly memorable.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Guest" class="author-img">
+                        <div class="author-info">
+                            <h4>Rahul Sharma</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>The culinary experience at The Royal Haven Suites is unparalleled. Every meal was a gastronomic journey, and the staff went above and beyond to accommodate our dietary preferences.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b332c1ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Guest" class="author-img">
+                        <div class="author-info">
+                            <h4>Priya Nair</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>As a frequent business traveler, I've experienced many luxury hotels, but The Royal Haven Suites stands out for its exceptional service, attention to detail, and seamless check-in/check-out process.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Guest" class="author-img">
+                        <div class="author-info">
+                            <h4>Vikram Malhotra</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join Our Loyalty Program</h2>
+                <p>Unlock exclusive benefits, earn rewards with every stay, and enjoy personalized services tailored to your preferences.</p>
+                <a href="#" class="btn-primary">Join Now</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About The Royal Haven Suites</h3>
+                    <p>Experience the pinnacle of luxury hospitality in Chennai. Our premium properties offer unparalleled comfort, elegance, and world-class service for the discerning traveler.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                        <li><a href="#"><i class="fas fa-bed"></i> Our Suites</a></li>
+                        <li><a href="#"><i class="fas fa-tag"></i> Special Offers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Our Locations</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Triplicane</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> T. Nagar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> OMR</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Koyambedu</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Tambaram</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Pallavaram</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact & Support</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                        <li><a href="mailto:info@royalhavensuites.com"><i class="fas fa-envelope"></i> info@royalhavensuites.com</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> 24/7 Customer Support</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-file-alt"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-shield-alt"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 The Royal Haven Suites. All rights reserved. | 
+                   <a href="#">Privacy Policy</a> | 
+                   <a href="#">Terms of Service</a> | 
+                   <a href="#">Sitemap</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle user dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const userAvatar = document.querySelector('.user-avatar');
+            
+            if (!userAvatar.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+        
+        // Set minimum date for check-in to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('checkin').setAttribute('min', today);
+        
+        // Set minimum date for check-out to check-in date + 1 day
+        document.getElementById('checkin').addEventListener('change', function() {
+            const checkinDate = new Date(this.value);
+            const checkoutDate = new Date(checkinDate);
+            checkoutDate.setDate(checkoutDate.getDate() + 1);
+            const minCheckout = checkoutDate.toISOString().split('T')[0];
+            document.getElementById('checkout').setAttribute('min', minCheckout);
+            
+        });
+         // On clicking the book now button redirect to payment page
+        document.querySelectorAll('.btn-book').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get the suite card details
+                const suiteCard = this.closest('.suite-card');
+                const suiteType = suiteCard.querySelector('h3').textContent;
+                const price = suiteCard.querySelector('.price').textContent.split(' ')[0];
+                
+                // Get form values
+                const location = document.getElementById('location').value || 'Not Selected';
+                const checkin = document.getElementById('checkin').value;
+                const checkout = document.getElementById('checkout').value;
+                const guests = document.getElementById('guests').value;
+                
+                // Validate required fields
+                if (!checkin || !checkout) {
+                    alert('Please select check-in and check-out dates');
+                    return;
+                }
+                
+                // Redirect to payment page with parameters
+                const params = new URLSearchParams({
+                    suite: suiteType,
+                    location: location,
+                    checkin: checkin,
+                    checkout: checkout,
+                    guests: guests,
+                    price: price
+                });
+                
+                window.location.href = `payment.html?${params.toString()}`;
+            });
+        });
+
+
+    </script>
+</body>
+</html> 
+       
