@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Royal Haven Suites - Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #b21f1f;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+        
+        .user-dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .dropdown-menu.active {
+            display: block;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .dropdown-menu a i {
+            margin-right: 10px;
+            color: #d4af37;
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 5px 0;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 20px 0;
+            font-size: 14px;
+        }
+        
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #d4af37;
+        }
+        
+        .breadcrumb span {
+            color: #6c757d;
+            margin: 0 5px;
+        }
+        
+        .breadcrumb .current {
+            color: #d4af37;
+            font-weight: 600;
+        }
+        
+        /* Payment Section */
+        .payment-section {
+            padding: 40px 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #0a1929;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .payment-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        /* Booking Details */
+        .booking-details {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            height: fit-content;
+        }
+        
+        .booking-details h3 {
+            font-size: 1.3rem;
+            color: #0a1929;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .booking-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .booking-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .booking-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .booking-value {
+            color: #555;
+        }
+        
+        .booking-summary {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .price-row.total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0a1929;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .discount {
+            color: #28a745;
+        }
+        
+        /* Payment Form */
+        .payment-form {
+            background-color: white;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .payment-method {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method:hover {
+            border-color: #d4af37;
+        }
+        
+        .payment-method.active {
+            border-color: #d4af37;
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        
+        .payment-method i {
+            font-size: 24px;
+            color: #d4af37;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #0a1929;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .card-input-group {
+            position: relative;
+        }
+        
+        .card-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+        
+        /* Terms and Conditions */
+        .terms-group {
+            margin: 30px 0;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+        
+        .checkbox-group label a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+        
+        .checkbox-group label a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1a2332, #0a1929);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 25, 41, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: #0a1929;
+            border: 1px solid #0a1929;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #b21f1f;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-section ul li a i {
+            margin-right: 10px;
+            color: #d4af37;
+            font-size: 14px;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background-color: #b21f1f;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .footer-bottom a {
+            color: #d4af37;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-bottom a:hover {
+            color: #b21f1f;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .payment-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .payment-methods {
+                flex-direction: column;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h1 class="brand-name">The Royal Haven Suites</h1>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    
+                    <div class="user-dropdown">
+                        <div class="user-avatar" onclick="toggleDropdown()">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                            <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a>
+                            <a href="rewards.html"><i class="fas fa-gift"></i> Rewards & Wallet</a>
+                            <a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#"><i class="fas fa-question-circle"></i> Help & Support</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="signin.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="home.html">Home</a>
+            <span>></span>
+            <a href="#">Suites</a>
+            <span>></span>
+            <span class="current">Payment</span>
+        </div>
+    </div>
+    
+    <!-- Payment Section -->
+    <section class="payment-section">
+        <div class="container">
+            <h2 class="section-title">Complete Your Booking</h2>
+            
+            <div class="payment-container">
+                <!-- Booking Details -->
+                <div class="booking-details">
+                    <h3>Booking Details</h3>
+                    
+                    <div class="booking-item">
+                        <span class="booking-label">Suite Type:</span>
+                        <span class="booking-value" id="suiteType">Deluxe Suite</span>
+                    </div>
+                    
+                    <div class="booking-item">
+                        <span class="booking-label">Location:</span>
+                        <span class="booking-value" id="location">T. Nagar</span>
+                    </div>
+                    
+                    <div class="booking-item">
+                        <span class="booking-label">Check-in:</span>
+                        <span class="booking-value" id="checkinDate">June 15, 2023</span>
+                    </div>
+                    
+                    <div class="booking-item">
+                        <span class="booking-label">Check-out:</span>
+                        <span class="booking-value" id="checkoutDate">June 18, 2023</span>
+                    </div>
+                    
+                    <div class="booking-item">
+                        <span class="booking-label">Guests:</span>
+                        <span class="booking-value" id="guests">2 Adults</span>
+                    </div>
+                    
+                    <div class="booking-item">
+                        <span class="booking-label">Nights:</span>
+                        <span class="booking-value" id="nights">3</span>
+                    </div>
+                    
+                    <div class="booking-summary">
+                        <div class="price-row">
+                            <span>Room Rate:</span>
+                            <span id="roomRate">₹8,500</span>
+                        </div>
+                        
+                        <div class="price-row">
+                            <span>Room Rate × 3 Nights:</span>
+                            <span id="totalRoomRate">₹25,500</span>
+                        </div>
+                        
+                        <div class="price-row">
+                            <span>Taxes & Fees:</span>
+                            <span id="taxes">₹3,825</span>
+                        </div>
+                        
+                        <div class="price-row discount">
+                            <span>Discount (10%):</span>
+                            <span id="discount">-₹2,933</span>
+                        </div>
+                        
+                        <div class="price-row total">
+                            <span>Total Amount:</span>
+                            <span id="totalAmount">₹26,392</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Form -->
+                <div class="payment-form">
+                    <h3>Payment Information</h3>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method active" onclick="selectPaymentMethod(this, 'card')">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Credit/Debit Card</span>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPaymentMethod(this, 'upi')">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>UPI</span>
+                        </div>
+                        
+                        <div class="payment-method" onclick="selectPaymentMethod(this, 'wallet')">
+                            <i class="fas fa-wallet"></i>
+                            <span>Wallet</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Payment Form -->
+                    <div id="cardPaymentForm" class="payment-form-container">
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name</label>
+                            <input type="text" id="cardName" placeholder="John Doe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <div class="card-input-group">
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                <i class="fas fa-credit-card card-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123" maxlength="4" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- UPI Payment Form -->
+                    <div id="upiPaymentForm" class="payment-form-container" style="display: none;">
+                        <div class="form-group">
+                            <label for="upiId">UPI ID</label>
+                            <input type="text" id="upiId" placeholder="yourname@upi" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Wallet Payment Form -->
+                    <div id="walletPaymentForm" class="payment-form-container" style="display: none;">
+                        <div class="form-group">
+                            <label for="walletType">Select Wallet</label>
+                            <select id="walletType" required>
+                                <option value="">Select a wallet</option>
+                                <option value="paytm">Paytm</option>
+                                <option value="phonepe">PhonePe</option>
+                                <option value="googlepay">Google Pay</option>
+                                <option value="amazonpay">Amazon Pay</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="walletNumber">Registered Mobile Number</label>
+                            <input type="tel" id="walletNumber" placeholder="9876543210" required>
+                        </div>
+                    </div>
+                    
+                    <div class="terms-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms">I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Cancellation Policy</a></label>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <a href="home.html" class="btn btn-secondary">Cancel</a>
+                        <button type="button" class="btn btn-primary" onclick="processPayment()">Complete Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About The Royal Haven Suites</h3>
+                    <p>Experience the pinnacle of luxury hospitality in Chennai. Our premium properties offer unparalleled comfort, elegance, and world-class service for the discerning traveler.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                        <li><a href="#"><i class="fas fa-bed"></i> Our Suites</a></li>
+                        <li><a href="#"><i class="fas fa-tag"></i> Special Offers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Our Locations</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Triplicane</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> T. Nagar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> OMR</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Koyambedu</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Tambaram</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Pallavaram</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact & Support</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                        <li><a href="mailto:info@royalhavensuites.com"><i class="fas fa-envelope"></i> info@royalhavensuites.com</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> 24/7 Customer Support</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-file-alt"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-shield-alt"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 The Royal Haven Suites. All rights reserved. | 
+                   <a href="#">Privacy Policy</a> | 
+                   <a href="#">Terms of Service</a> | 
+                   <a href="#">Sitemap</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle user dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const userAvatar = document.querySelector('.user-avatar');
+            
+            if (!userAvatar.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+        
+        // Select payment method
+        function selectPaymentMethod(element, method) {
+            // Remove active class from all payment methods
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Add active class to selected payment method
+            element.classList.add('active');
+            
+            // Hide all payment forms
+            document.querySelectorAll('.payment-form-container').forEach(form => {
+                form.style.display = 'none';
+            });
+            
+            // Show selected payment form
+            if (method === 'card') {
+                document.getElementById('cardPaymentForm').style.display = 'block';
+            } else if (method === 'upi') {
+                document.getElementById('upiPaymentForm').style.display = 'block';
+            } else if (method === 'wallet') {
+                document.getElementById('walletPaymentForm').style.display = 'block';
+            }
+        }
+        
+        // Format card number
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+        
+        // Format expiry date
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+        
+        // Process payment
+        function processPayment() {
+            // Validate form
+            const activeMethod = document.querySelector('.payment-method.active');
+            let isValid = true;
+            
+            if (activeMethod && activeMethod.textContent.includes('Card')) {
+                const cardName = document.getElementById('cardName').value;
+                const cardNumber = document.getElementById('cardNumber').value;
+                const expiryDate = document.getElementById('expiryDate').value;
+                const cvv = document.getElementById('cvv').value;
+                
+                if (!cardName || !cardNumber || !expiryDate || !cvv) {
+                    isValid = false;
+                    alert('Please fill in all card details');
+                }
+            } else if (activeMethod && activeMethod.textContent.includes('UPI')) {
+                const upiId = document.getElementById('upiId').value;
+                
+                if (!upiId) {
+                    isValid = false;
+                    alert('Please enter your UPI ID');
+                }
+            } else if (activeMethod && activeMethod.textContent.includes('Wallet')) {
+                const walletType = document.getElementById('walletType').value;
+                const walletNumber = document.getElementById('walletNumber').value;
+                
+                if (!walletType || !walletNumber) {
+                    isValid = false;
+                    alert('Please select a wallet and enter your mobile number');
+                }
+            }
+            
+            const termsCheckbox = document.getElementById('terms');
+            if (!termsCheckbox.checked) {
+                isValid = false;
+                alert('Please accept the terms and conditions');
+            }
+            
+            if (isValid) {
+                // In a real application, this would process the payment
+                alert('Payment successful! Your booking has been confirmed.');
+                // Redirect to booking confirmation page
+                window.location.href = 'booking-confirmation.html';
+            }
+        }
+        
+        // Get URL parameters to populate booking details
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const suiteType = urlParams.get('suite');
+            const location = urlParams.get('location');
+            const checkin = urlParams.get('checkin');
+            const checkout = urlParams.get('checkout');
+            const guests = urlParams.get('guests');
+            const price = urlParams.get('price');
+            
+            if (suiteType) document.getElementById('suiteType').textContent = suiteType;
+            if (location) document.getElementById('location').textContent = location;
+            if (checkin) {
+                const checkinDate = new Date(checkin);
+                document.getElementById('checkinDate').textContent = checkinDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+            if (checkout) {
+                const checkoutDate = new Date(checkout);
+                document.getElementById('checkoutDate').textContent = checkoutDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+            if (guests) document.getElementById('guests').textContent = guests + (guests == 1 ? ' Adult' : ' Adults');
+            
+            // Calculate nights
+            if (checkin && checkout) {
+                const checkinDate = new Date(checkin);
+                const checkoutDate = new Date(checkout);
+                const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+                document.getElementById('nights').textContent = nights;
+                
+                // Calculate total amount
+                if (price) {
+                    const roomRate = parseInt(price.replace('₹', '').replace(',', ''));
+                    const totalRoomRate = roomRate * nights;
+                    const taxes = Math.round(totalRoomRate * 0.15);
+                    const discount = Math.round((totalRoomRate + taxes) * 0.1);
+                    const totalAmount = totalRoomRate + taxes - discount;
+                    
+                    document.getElementById('roomRate').textContent = price;
+                    document.getElementById('totalRoomRate').textContent = '₹' + totalRoomRate.toLocaleString('en-IN');
+                    document.getElementById('taxes').textContent = '₹' + taxes.toLocaleString('en-IN');
+                    document.getElementById('discount').textContent = '-₹' + discount.toLocaleString('en-IN');
+                    document.getElementById('totalAmount').textContent = '₹' + totalAmount.toLocaleString('en-IN');
+                }
+            }
+        };
+    </script>
+</body>
+</html>
