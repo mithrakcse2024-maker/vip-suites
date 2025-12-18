@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suites Management - The Royal Haven Suites</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .brand-name {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            font-size: 18px;
+            border: 2px solid #d4af37;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #0a1929;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 70px;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar-menu a.active {
+            border-left: 4px solid #d4af37;
+        }
+        
+        .sidebar-menu a i {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: #0a1929;
+        }
+        
+        .add-suite-btn {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .add-suite-btn:hover {
+            background: linear-gradient(135deg, #1a2332, #0a1929);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 25, 41, 0.3);
+        }
+        
+        /* Suite Filters */
+        .suite-filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .filter-item {
+            position: relative;
+        }
+        
+        .filter-item select {
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: white;
+            font-size: 14px;
+            cursor: pointer;
+            appearance: none;
+            padding-right: 35px;
+        }
+        
+        .filter-item::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+        
+        /* Suite Grid */
+        .suite-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .suite-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .suite-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .suite-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .suite-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .suite-action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .suite-action-btn:hover {
+            background-color: white;
+            color: #d4af37;
+        }
+        
+        .suite-content {
+            padding: 20px;
+        }
+        
+        .suite-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .suite-name {
+            font-size: 1.3rem;
+            color: #0a1929;
+            font-weight: 700;
+        }
+        
+        .suite-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-available {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+        
+        .status-occupied {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+        
+        .status-maintenance {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+        }
+        
+        .status-reserved {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: #17a2b8;
+        }
+        
+        .suite-type {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .suite-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .suite-feature {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .suite-feature i {
+            margin-right: 5px;
+            color: #d4af37;
+        }
+        
+        .suite-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .suite-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0a1929;
+        }
+        
+        .suite-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #6c757d;
+        }
+        
+        .suite-guest {
+            display: flex;
+            align-items: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .suite-guest i {
+            margin-right: 5px;
+            color: #d4af37;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: #0a1929;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #6c757d;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #0a1929;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .image-upload {
+            border: 2px dashed #e0e0e0;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .image-upload:hover {
+            border-color: #d4af37;
+        }
+        
+        .image-upload i {
+            font-size: 48px;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1a2332, #0a1929);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: #0a1929;
+            border: 1px solid #0a1929;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f8f9fa;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            padding: 40px 20px 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #d4af37;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-section ul li a i {
+            margin-right: 10px;
+            color: #d4af37;
+            font-size: 14px;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .footer-bottom a {
+            color: #d4af37;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-bottom a:hover {
+            color: white;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+            }
+            
+            .suite-filters {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                flex-wrap: wrap;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .suite-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h1 class="brand-name">The Royal Haven Suites - Admin</h1>
+            </div>
+            
+            <div class="admin-info">
+                <div class="admin-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span>Admin</span>
+                <a href="signin.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </nav>
+    </header>
+    
+    
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="admin home.html"><i class="fas fa-tachometer-alt"></i>home </a></li>
+                <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="admin-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="admin-rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                <li><a href="admin-suites.html" class="active"><i class="fas fa-door-open"></i> Suites</a></li>
+                <li><a href="admin-guests.html"><i class="fas fa-users"></i> Guests</a></li>
+                <li><a href="admin-rates.html"><i class="fas fa-tag"></i> Rates & Offers</a></li>
+                <li><a href="admin-staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+                <li><a href="admin-settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Suites Management</h1>
+                <a href="#" class="add-suite-btn" onclick="openSuiteModal()">
+                    <i class="fas fa-plus"></i> Add Suite
+                </a>
+            </div>
+            
+            <!-- Suite Filters -->
+            <div class="suite-filters">
+                <div class="filter-group">
+                    <div class="filter-item">
+                        <select id="locationFilter">
+                            <option value="">All Locations</option>
+                            <option value="triplicane">Triplicane</option>
+                            <option value="t-nagar">T. Nagar</option>
+                            <option value="omr">OMR</option>
+                            <option value="koyambedu">Koyambedu</option>
+                            <option value="tambaram">Tambaram</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <select id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="available">Available</option>
+                            <option value="occupied">Occupied</option>
+                            <option value="maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search suites...">
+                </div>
+            </div>
+            
+            <!-- Suite Grid -->
+            <div class="suite-grid">
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <div class="suite-actions">
+                            <button class="suite-action-btn" title="Edit" onclick="editSuite(1)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="suite-action-btn" title="Delete" onclick="deleteSuite(1)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        <div class="suite-header">
+                            <div class="suite-name">Presidential Suite</div>
+                            <div class="suite-status status-available">Available</div>
+                        </div>
+                        <div class="suite-type">Luxury Suite</div>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> King Size Bed
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 4 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 1200 sqft
+                            </div>
+                        </div>
+                        <div class="suite-footer">
+                            <div class="suite-price">₹25,000 <span>/night</span></div>
+                            <div class="suite-guest">
+                                <i class="fas fa-map-marker-alt"></i> T. Nagar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <div class="suite-actions">
+                            <button class="suite-action-btn" title="Edit" onclick="editSuite(2)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="suite-action-btn" title="Delete" onclick="deleteSuite(2)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        <div class="suite-header">
+                            <div class="suite-name">Executive Suite</div>
+                            <div class="suite-status status-occupied">Occupied</div>
+                        </div>
+                        <div class="suite-type">Business Suite</div>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> King Size Bed
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 2 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 550 sqft
+                            </div>
+                        </div>
+                        <div class="suite-footer">
+                            <div class="suite-price">₹12,000 <span>/night</span></div>
+                            <div class="suite-guest">
+                                <i class="fas fa-map-marker-alt"></i> T. Nagar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <div class="suite-actions">
+                            <button class="suite-action-btn" title="Edit" onclick="editSuite(3)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="suite-action-btn" title="Delete" onclick="deleteSuite(3)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        <div class="suite-header">
+                            <div class="suite-name">Deluxe Suite</div>
+                            <div class="suite-status status-available">Available</div>
+                        </div>
+                        <div class="suite-type">Comfort Suite</div>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> King Size Bed
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 2 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 450 sqft
+                            </div>
+                        </div>
+                        <div class="suite-footer">
+                            <div class="suite-price">₹8,500 <span>/night</span></div>
+                            <div class="suite-guest">
+                                <i class="fas fa-map-marker-alt"></i> Triplicane
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <div class="suite-actions">
+                            <button class="suite-action-btn" title="Edit" onclick="editSuite(4)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="suite-action-btn" title="Delete" onclick="deleteSuite(4)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        <div class="suite-header">
+                            <div class="suite-name">Family Suite</div>
+                            <div class="suite-status status-reserved">Reserved</div>
+                        </div>
+                        <div class="suite-type">Family Room</div>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> 2 Queen Beds
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 4 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 750 sqft
+                            </div>
+                        </div>
+                        <div class="suite-footer">
+                            <div class="suite-price">₹15,000 <span>/night</span></div>
+                            <div class="suite-guest">
+                                <i class="fas fa-map-marker-alt"></i> OMR
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1582719508461-905c673771a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <div class="suite-actions">
+                            <button class="suite-action-btn" title="Edit" onclick="editSuite(5)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="suite-action-btn" title="Delete" onclick="deleteSuite(5)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        <div class="suite-header">
+                            <div class="suite-name">Honeymoon Suite</div>
+                            <div class="suite-status status-maintenance">Maintenance</div>
+                        </div>
+                        <div class="suite-type">Romantic Suite</div>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> King Size Bed
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 2 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 600 sqft
+                            </div>
+                        </div>
+                        <div class="suite-footer">
+                            <div class="suite-price">₹18,000 <span>/night</span></div>
+                            <div class="suite-guest">
+                                <i class="fas fa-map-marker-alt"></i> T. Nagar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="suite-card">
+                    <div class="suite-img" style="background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80')">
+                        <div class="suite-actions">
+                            <button class="suite-action-btn" title="Edit" onclick="editSuite(6)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="suite-action-btn" title="Delete" onclick="deleteSuite(6)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        <div class="suite-header">
+                            <div class="suite-name">Standard Room</div>
+                            <div class="suite-status status-available">Available</div>
+                        </div>
+                        <div class="suite-type">Economy Room</div>
+                        <div class="suite-features">
+                            <div class="suite-feature">
+                                <i class="fas fa-bed"></i> Queen Size Bed
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-users"></i> 2 Guests
+                            </div>
+                            <div class="suite-feature">
+                                <i class="fas fa-expand"></i> 300 sqft
+                            </div>
+                        </div>
+                        <div class="suite-footer">
+                            <div class="suite-price">₹5,500 <span>/night</span></div>
+                            <div class="suite-guest">
+                                <i class="fas fa-map-marker-alt"></i> Koyambedu
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Suite Modal -->
+    <div class="modal" id="suiteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add/Edit Suite</h3>
+                <button class="modal-close" onclick="closeSuiteModal()">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="suiteForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="suiteName">Suite Name</label>
+                            <input type="text" id="suiteName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="suiteType">Suite Type</label>
+                            <select id="suiteType" required>
+                                <option value="">Select Type</option>
+                                <option value="deluxe">Deluxe</option>
+                                <option value="executive">Executive</option>
+                                <option value="presidential">Presidential</option>
+                                <option value="family">Family</option>
+                                <option value="honeymoon">Honeymoon</option>
+                                <option value="standard">Standard</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <select id="location" required>
+                                <option value="">Select Location</option>
+                                <option value="triplicane">Triplicane</option>
+                                <option value="t-nagar">T. Nagar</option>
+                                <option value="omr">OMR</option>
+                                <option value="koyambedu">Koyambedu</option>
+                                <option value="tambaram">Tambaram</option>
+                                <option value="pallavaram">Pallavaram</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" required>
+                                <option value="available">Available</option>
+                                <option value="occupied">Occupied</option>
+                                <option value="maintenance">Maintenance</option>
+                                <option value="reserved">Reserved</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Price per Night (₹)</label>
+                            <input type="number" id="price" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="maxGuests">Maximum Guests</label>
+                            <select id="maxGuests" required>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5 Guests</option>
+                                <option value="6">6 Guests</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bedType">Bed Type</label>
+                            <select id="bedType" required>
+                                <option value="">Select Bed Type</option>
+                                <option value="king">King Size</option>
+                                <option value="queen">Queen Size</option>
+                                <option value="twin">Twin Beds</option>
+                                <option value="double">Double Bed</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="suiteSize">Suite Size (sqft)</label>
+                            <input type="number" id="suiteSize" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" rows="4" placeholder="Enter suite description..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amenities">Amenities (comma separated)</label>
+                        <input type="text" id="amenities" placeholder="WiFi, Air Conditioning, Mini Bar, Room Service...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="image">Suite Image</label>
+                        <div class="image-upload" onclick="document.getElementById('imageFile').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload image</p>
+                            <input type="file" id="imageFile" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeSuiteModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveSuite()">Save Suite</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About The Royal Haven Suites</h3>
+                <p>The Royal Haven Suites offers luxurious accommodations and world-class amenities for discerning travelers seeking comfort and elegance.</p>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="admin-rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                    <li><a href="admin-suites.html"><i class="fas fa-door-open"></i> Suites</a></li>
+                    <li><a href="admin-guests.html"><i class="fas fa-users"></i> Guests</a></li>
+                    <li><a href="admin-rates.html"><i class="fas fa-tag"></i> Rates & Offers</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Our Locations</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Triplicane</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> T. Nagar</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> OMR</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Koyambedu</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Tambaram</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                    <li><a href="mailto:info@royalhavensuites.com"><i class="fas fa-envelope"></i> info@royalhavensuites.com</a></li>
+                    <li><a href="#"><i class="fas fa-headset"></i> 24/7 Customer Support</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 The Royal Haven Suites. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Open suite modal
+        function openSuiteModal() {
+            document.getElementById('suiteModal').classList.add('active');
+        }
+        
+        // Close suite modal
+        function closeSuiteModal() {
+            document.getElementById('suiteModal').classList.remove('active');
+        }
+        
+        // Edit suite
+        function editSuite(suiteId) {
+            // In a real application, this would load the suite data into the form
+            openSuiteModal();
+            alert('Editing suite: ' + suiteId);
+        }
+        
+        // Delete suite
+        function deleteSuite(suiteId) {
+            if (confirm('Are you sure you want to delete this suite?')) {
+                // In a real application, this would delete the suite from the database
+                alert('Suite ' + suiteId + ' has been deleted.');
+            }
+        }
+        
+        // Save suite
+        function saveSuite() {
+            // In a real application, this would save the suite to the database
+            alert('Suite saved successfully!');
+            closeSuiteModal();
+        }
+        
+        // Handle image upload
+        document.getElementById('imageFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // In a real application, this would display the uploaded image
+                    console.log('Image uploaded:', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Handle filter changes
+        document.getElementById('locationFilter').addEventListener('change', function() {
+            // In a real application, this would filter suites based on location
+            console.log('Location filter changed:', this.value);
+        });
+        
+        document.getElementById('statusFilter').addEventListener('change', function() {
+            // In a real application, this would filter suites based on status
+            console.log('Status filter changed:', this.value);
+        });
+        
+        // Handle search
+        document.querySelector('.search-box input').addEventListener('input', function() {
+            // In a real application, this would search suites
+            console.log('Search query:', this.value);
+        });
+        
+    </script>
+</body>
+</html>
