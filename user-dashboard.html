@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Royal Haven Suites - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .brand-name {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #d4af37;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+        
+        .user-dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .dropdown-menu.active {
+            display: block;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .dropdown-menu a i {
+            margin-right: 10px;
+            color: #d4af37;
+        }
+        
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 5px 0;
+        }
+        
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #0a1929;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar-menu a.active {
+            border-left: 4px solid #d4af37;
+        }
+        
+        .sidebar-menu a i {
+            margin-right: 10px;
+            font-size: 18px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        /* Welcome Section */
+        .welcome-section {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .welcome-info h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .welcome-info p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+        
+        .quick-stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Card Styles */
+        .dashboard-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            color: #0a1929;
+            font-weight: 600;
+        }
+        
+        .card-content {
+            margin-bottom: 20px;
+        }
+        
+        .card-content p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .card-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .action-link {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .action-link:hover {
+            color: #b21f1f;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #0a1929, #1a2332);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: linear-gradient(135deg, #1a2332, #0a1929);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(10, 25, 41, 0.3);
+        }
+        
+        /* Recent Activity */
+        .activity-list {
+            list-style: none;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s;
+        }
+        
+        .activity-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-right: 15px;
+        }
+        
+        .activity-info {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            color: #0a1929;
+            margin-bottom: 5px;
+        }
+        
+        .activity-desc {
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, #0a1929 0%, #1a2332 100%);
+            color: white;
+            padding: 40px 20px 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+            color: #d4af37;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #b21f1f;
+        }
+        
+        .footer-section p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .footer-section ul li a i {
+            margin-right: 10px;
+            color: #d4af37;
+            font-size: 14px;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background-color: #b21f1f;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .footer-bottom a {
+            color: #d4af37;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-bottom a:hover {
+            color: #b21f1f;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+            }
+            
+            .welcome-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .quick-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h1 class="brand-name">The Royal Haven Suites</h1>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    
+                    <div class="user-dropdown">
+                        <div class="user-avatar" onclick="toggleDropdown()">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        
+                        <div class="dropdown-menu" id="userDropdown">
+                            <a href="user-dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                            <a href="user-profile.html"><i class="fas fa-user"></i> Profile</a>
+                            <a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a>
+                            <a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a>
+                            <a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#"><i class="fas fa-question-circle"></i> Help & Support</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="signin.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+      <div class="container">
+        <a href="home.html" style="display: inline-flex; align-items: center; gap: 8px; color: #d4af37; text-decoration: none; margin-bottom: 20px; font-weight: 600; transition: all 0.3s;">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+    
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                <li><a href="user-profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="transactions.html"><i class="fas fa-credit-card"></i> Transactions</a></li>
+                <li><a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a></li>
+                <li><a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-content">
+                    <div class="welcome-info">
+                        <h1>Welcome back, Alex!</h1>
+                        <p>Your luxury escape awaits. Explore our exclusive offerings and manage your bookings with ease.</p>
+                    </div>
+                    
+                    <div class="quick-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Total Bookings</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">48</div>
+                            <div class="stat-label">Nights Stayed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">8,500</div>
+                            <div class="stat-label">Reward Points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- My Bookings Card -->
+                <div class="dashboard-card" onclick="location.href='booking-details.html'">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3 class="card-title">My Bookings</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>View and manage all your current and past reservations. Check upcoming bookings, modify dates, or cancel if needed.</p>
+                    </div>
+                    <div class="card-action">
+                        <span class="activity-time">3 upcoming bookings</span>
+                        <a href="booking-details.html" class="action-btn">Manage Bookings</a>
+                    </div>
+                </div>
+                
+                <!-- Profile Card -->
+                <div class="dashboard-card" onclick="location.href='user-profile.html'">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="card-title">My Profile</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Update your personal information, contact details, and preferences. Manage your account settings and privacy options.</p>
+                    </div>
+                    <div class="card-action">
+                        <span class="activity-time">Last updated 2 days ago</span>
+                        <a href="user-profile.html" class="action-btn">Edit Profile</a>
+                    </div>
+                </div>
+                
+                <!-- Rewards Card -->
+                <div class="dashboard-card" onclick="location.href='rewards.html'">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3 class="card-title">Rewards</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Earn and redeem points for exclusive benefits. Check your tier status and available rewards.</p>
+                    </div>
+                    <div class="card-action">
+                        <span class="activity-time">Gold Member</span>
+                        <a href="rewards.html" class="action-btn">View Rewards</a>
+                    </div>
+                </div>
+                
+                <!-- My Reviews Card -->
+                <div class="dashboard-card" onclick="location.href='reviews.html'">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="card-title">My Reviews</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Share your experience and read reviews from other guests. Help us improve our services.</p>
+                    </div>
+                    <div class="card-action">
+                        <span class="activity-time">5 reviews written</span>
+                        <a href="reviews.html" class="action-btn">Write Review</a>
+                    </div>
+                </div>
+                
+                <!-- Settings Card -->
+                <div class="dashboard-card" onclick="location.href='settings.html'">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <h3 class="card-title">Settings</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>Customize your account preferences, notification settings, and privacy controls.</p>
+                    </div>
+                    <div class="card-action">
+                        <span class="activity-time">2 notifications</span>
+                        <a href="settings.html" class="action-btn">Manage Settings</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Transaction History -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3 class="card-title">Recent Activity</h3>
+                </div>
+                <div class="card-content">
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-info">
+                                <div class="activity-title">Booking Confirmed</div>
+                                <div class="activity-desc">Executive Suite - T. Nagar (Jan 5-10, 2024)</div>
+                                <div class="activity-time">2 hours ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="activity-info">
+                                <div class="activity-title">Reward Claimed</div>
+                                <div class="activity-desc">10% Off Next Booking (500 points)</div>
+                                <div class="activity-time">Yesterday</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="activity-info">
+                                <div class="activity-title">Review Submitted</div>
+                                <div class="activity-desc">Deluxe Suite - Triplicane</div>
+                                <div class="activity-time">3 days ago</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="activity-info">
+                                <div class="activity-title">Booking Completed</div>
+                                <div class="activity-desc">Presidential Suite - OMR (Dec 10-15, 2023)</div>
+                                <div class="activity-time">1 week ago</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-action">
+                    <a href="#" class="action-link">View All Activity</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About The Royal Haven Suites</h3>
+                    <p>Experience the pinnacle of luxury hospitality in Chennai. Our premium properties offer unparalleled comfort, elegance, and world-class service for the discerning traveler.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="user-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="user-profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                        <li><a href="booking-details.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+                        <li><a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a></li>
+                        <li><a href="transactions.html"><i class="fas fa-exchange-alt"></i> Transactions</a></li>
+                        <li><a href="reviews.html"><i class="fas fa-star"></i> My Reviews</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Our Locations</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Triplicane</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> T. Nagar</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> OMR</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Koyambedu</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Tambaram</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                        <li><a href="mailto:info@royalhavensuites.com"><i class="fas fa-envelope"></i> info@royalhavensuites.com</a></li>
+                        <li><a href="#"><i class="fas fa-clock"></i> 24/7 Customer Support</a></li>
+                        <li><a href="#"><i class="fas fa-headset"></i> Live Chat Available</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 The Royal Haven Suites. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle user dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const userAvatar = document.querySelector('.user-avatar');
+            
+            if (!userAvatar.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+        // add the back navigation to home page
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            window.location.href = 'home.html';
+        }); 
+        // Effect for sidebar active link
+        document.querySelectorAll('.sidebar-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar-menu a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+         
+    </script>
+</body>
+</html>
